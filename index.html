@@ -103,25 +103,65 @@
         }
       }
 
-      .btn {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        display: none; /* Hide button by default until file is verified */
+	.btn {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      display: none; /* Hide button by default until file is verified */
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    /* Optional: space between icon and text */
+    .btn i {
+      margin-right: 8px;
+    }
+
+    /* Responsive Intro Image */
+    .intro-image {
+      max-width: 40%;
+      height: auto;
+    }
+
+    @media (max-width: 992px) {
+      .intro-image {
+        max-width: 60%;
       }
-      .btn:hover {
-        background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+      .intro-image {
+        max-width: 80%;
       }
-      /* Optional: space between icon and text */
-      .btn i {
-        margin-right: 8px;
+    }
+
+    @media (max-width: 576px) {
+      .intro-image {
+        max-width: 90%;
       }
-    </style>
-  </head>
+    }
+
+    /* Animated Rainbow Gradient for Title */
+    .rainbow-text {
+      background: linear-gradient(90deg, #9e05ff, #04afdc, #93f309, #e7c800, #fe2403, #9e05ff);
+      background-size: 400% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowShift 8s linear infinite;
+    }
+
+    @keyframes rainbowShift {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: -200% 50%; }
+    }
+	</style>
+
+
+</head>
 
   <body>
     <div class="highlight-clean" style="padding-bottom: 1">
@@ -129,124 +169,52 @@
         <!-- <div style="text-align: center; margin-bottom: 5px;">
 				<h1 class="text-center" style="display: inline; margin: 0;">UnMix-NeRF: Spectral Unmixing Meets Neural Radiance Fields</h1>
 			</div> -->
-        <div style="text-align: center; margin-bottom: 5px">
-          <h1 class="text-center" style="display: inline; margin: 0">
-            <span
-              style="
-                background: linear-gradient(
-                  to right,
-                  #9e05ff,
-                  #04afdc,
-                  #93f309,
-                  #e7c800,
-                  #fe2403
-                );
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-              "
-            >
-              UnMix
-            </span>
-            -NeRF: Spectral Unmixing Meets Neural Radiance Fields
-          </h1>
-        </div>
-      </div>
-      <!-- AUTHORS -->
-      <div style="text-align: center; margin-bottom: 20px">
-        <div style="font-size: 1.2em; font-weight: 500; line-height: 1.2">
-          <span style="color: #2196f3">Fabian Perez<sup>1</sup></span
-          >, <span style="color: #2196f3">Sara Rojas<sup>2</sup></span
-          >, <span style="color: #2196f3">Carlos Hinojosa<sup>2</sup></span
-          >, <span style="color: #2196f3">Hoover Rueda-Chacón<sup>1</sup></span
-          >, <span style="color: #2196f3">Bernard Ghanem<sup>2</sup></span
-          >,
-        </div>
-        <div style="font-size: 1em; margin-top: 8px">
-          <sup>1</sup>Universidad Industrial de Santander; <sup>2</sup>King
-          Abdullah University of Science and Technology (KAUST)
-        </div>
-        <div style="margin-top: 18px">
-          <a
-            href="LINK_TO_PAPER"
-            class="btn"
-            style="
-              display: inline-block;
-              background: #333;
-              color: #fff;
-              margin: 4px;
-              border-radius: 1.2em;
-              font-size: 1em;
-              padding: 0.3em 1em;
-              text-decoration: none;
-            "
-          >
-            <i class="fas fa-file-pdf"></i> Paper
-          </a>
-          <a
-            href="https://github.com/Factral/UnMix-NeRF/blob/21b8cac1aec762c1bcca7778da072ac8e22dd67c/docs/unmix_nerf_supplementary.pdf"
-            class="btn"
-            style="
-              display: inline-block;
-              background: #333;
-              color: #fff;
-              margin: 4px;
-              border-radius: 1.2em;
-              font-size: 1em;
-              padding: 0.3em 1em;
-              text-decoration: none;
-            "
-          >
-            <i class="fas fa-file-pdf"></i> Supplementary
-          </a>
-          <!-- <a href="LINK_TO_ARXIV" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
+			<div style="text-align: center; margin-bottom: 5px;">
+				<h1 class="text-center" style="display: inline; margin: 0; font-family: Varela Round, sans-serif; font-weight: 400; color:#4d4d4d">
+				  <span class="rainbow-text">
+					UnMix</span>-NeRF: Spectral Unmixing Meets Neural Radiance Fields
+				</h1>
+			  </div>
+		</div>
+		<!-- AUTHORS -->
+		<div style="text-align: center; margin-bottom: 20px;">
+		  <div style="font-size: 1.2em; font-weight: 500; line-height: 1.2;">
+			<span style="color: #2196f3;">Fabian Perez</span><sup>1</sup>,&nbsp 
+			<span style="color: #2196f3;">Sara Rojas</span><sup>2</sup>,&nbsp 
+			<span style="color: #2196f3;">Carlos Hinojosa</span><sup>2</sup>,&nbsp 
+			<span style="color: #2196f3;">Hoover Rueda-Chacón</span><sup>1</sup>,&nbsp 
+			<span style="color: #2196f3;">Bernard Ghanem</span><sup>2</sup>
+		  </div>
+		  <div style="font-size: 1em; margin-top: 8px;">
+			<sup>1</sup>Universidad Industrial de Santander
+			&nbsp&nbsp &nbsp  <sup>2</sup>King Abdullah University of Science and Technology (KAUST)
+		  </div>
+		  <div style="margin-top: 18px;">
+			<a href="https://arxiv.org/pdf/2301.03580" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
+			  <i class="fas fa-file-pdf"></i> Paper
+			</a>
+			<a href="https://github.com/Factral/UnMix-NeRF/blob/21b8cac1aec762c1bcca7778da072ac8e22dd67c/docs/unmix_nerf_supplementary.pdf" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
+			  <i class="fas fa-file-pdf"></i> Supplementary
+			</a>
+			<!-- <a href="LINK_TO_ARXIV" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
 			  <i class="fas fa-external-link-alt"></i> arXiv
 			</a> -->
           <!-- <a href="LINK_TO_VIDEO" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
 			  <i class="fas fa-play-circle"></i> Video
 			</a> -->
-          <a
-            href="https://github.com/Factral/UnMix-NeRF"
-            class="btn"
-            style="
-              display: inline-block;
-              background: #333;
-              color: #fff;
-              margin: 4px;
-              border-radius: 1.2em;
-              font-size: 1em;
-              padding: 0.3em 1em;
-              text-decoration: none;
-            "
-          >
-            <i class="fab fa-github"></i> Code
-          </a>
-          <a
-            href="LINK_TO_DATA"
-            class="btn"
-            style="
-              display: inline-block;
-              background: #333;
-              color: #fff;
-              margin: 4px;
-              border-radius: 1.2em;
-              font-size: 1em;
-              padding: 0.3em 1em;
-              text-decoration: none;
-            "
-          >
-            <i class="fas fa-image"></i> Data
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div style="text-align: center; margin-bottom: 10px">
-      <img
-        src="assets/intro.png"
-        alt="Introduction Image"
-        style="max-width: 40%; height: auto"
-      />
-    </div>
+			<a href="https://github.com/Factral/UnMix-NeRF" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
+			  <i class="fab fa-github"></i> Code
+			</a>
+			<a href="LINK_TO_DATA" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
+			  <i class="fas fa-image"></i> Data
+			</a>
+		  </div>
+		</div>
+	</div>
+	
+	<div style="text-align: center; margin-bottom: 10px;">
+		<img src="assets/intro.png" alt="Introduction Image" class="intro-image" />
+	</div>
 
     <p
       class="text-center"
@@ -721,8 +689,19 @@ scene. -->
 		});
 	</script> -->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  </body>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+	<!-- Disable controls on all videos -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			document.querySelectorAll('video').forEach(function (vid) {
+				vid.removeAttribute('controls');
+			});
+		});
+	</script>
+
+</body>
+
 </html>
