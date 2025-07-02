@@ -5,4 +5,5 @@ configargparse
 tensorboard>=2.0
 tqdm
 opencv-python
+spectral
 numpy==1.25.2
