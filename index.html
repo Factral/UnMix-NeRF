@@ -1,201 +1,275 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
 
-<head>
-	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XB3PR2Y1TQ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
 
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XB3PR2Y1TQ"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-		function gtag() {
-			dataLayer.push(arguments);
-		}
-		gtag('js', new Date());
+      gtag("config", "G-XB3PR2Y1TQ");
+    </script>
 
-		gtag('config', 'G-XB3PR2Y1TQ');
-	</script>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>UnMix-NeRF</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="assets/css/Highlight-Clean.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- compare two images -->
+    <!-- <link rel="stylesheet" href="assets/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="assets/css/bulma-carousel.min.css" />
+    <link rel="stylesheet" href="assets/css/bulma-slider.min.css" />
 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-	<title>UnMix-NeRF</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600' rel='stylesheet'
-		type='text/css'>
-	<link rel="stylesheet" href="assets/css/Highlight-Clean.css">
-	<link rel="stylesheet" href="assets/css/styles.css">
-	<!-- compare two images -->
-	<!-- <link rel="stylesheet" href="assets/css/bulma.min.css"> -->
-	<link rel="stylesheet" href="assets/css/bulma-carousel.min.css">
-	<link rel="stylesheet" href="assets/css/bulma-slider.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png" />
 
-	<link rel="apple-touch-icon" sizes="180x180" href="assets/logo.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png">
+    <link rel="manifest" href="site.webmanifest" />
 
-	<link rel="manifest" href="site.webmanifest">
+    <meta
+      property="og:site_name"
+      content="UnMix-NeRF: Spectral Unmixing Meets Neural Radiance Fields"
+    />
+    <meta property="og:type" content="video.other" />
+    <meta
+      property="og:title"
+      content="UnMix-NeRF: Spectral Unmixing Meets Neural Radiance Fields"
+    />
+    <meta
+      property="og:description"
+      content="UnMix-NeRF: Spectral Unmixing Meets Neural Radiance Fields, 2025."
+    />
 
-	<meta property="og:site_name" content="UnMix-NeRF: Spectral Unmixing Meets Neural Radiance Fields" />
-	<meta property="og:type" content="video.other" />
-	<meta property="og:title" content="UnMix-NeRF: Spectral Unmixing Meets Neural Radiance Fields" />
-	<meta property="og:description" content="UnMix-NeRF: Spectral Unmixing Meets Neural Radiance Fields, 2025." />
+    <script src="assets/js/video_comparison.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js"
+    ></script>
 
-	<script src="assets/js/video_comparison.js"></script>
-	<script type="module" src="https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js"></script>
+    <script src="assets/js/bulma-carousel.min.js"></script>
+    <script src="assets/js/bulma-slider.min.js"></script>
 
-	<script src="assets/js/bulma-carousel.min.js"></script>
-	<script src="assets/js/bulma-slider.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+      .small-bal-container {
+        width: 256px; /*296px*/ /* 540px; */ /* Set the desired width */
+        height: 256px; /* 302px; */ /* Set the height proportional to the aspect ratio (e.g., 16:9) */
+        margin: 0 auto; /* Center the images */
+        position: relative; /* Maintain the positioning for the slider and labels */
+        overflow: hidden; /* Ensure content stays within the container */
+      }
+      .small-bal-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure images scale proportionally */
+      }
+      @media (min-width: 768px) {
+        .right_container {
+          margin-left: 0;
+        }
 
-	<style>
-		.small-bal-container {
-			width: 256px; /*296px*/ /* 540px; */ /* Set the desired width */
-			height: 256px; /* 302px; */ /* Set the height proportional to the aspect ratio (e.g., 16:9) */
-			margin: 0 auto; /* Center the images */
-			position: relative; /* Maintain the positioning for the slider and labels */
-			overflow: hidden; /* Ensure content stays within the container */
-		}
-		.small-bal-container img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover; /* Ensure images scale proportionally */
-		}
-	@media (min-width: 768px) {
-		.right_container {
-			margin-left: 0;
-		}
+        .left_container {
+          margin-right: 0;
+        }
+      }
 
-		.left_container {
-			margin-right: 0;
-		}
-	}
+      .btn {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        display: none; /* Hide button by default until file is verified */
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
+      /* Optional: space between icon and text */
+      .btn i {
+        margin-right: 8px;
+      }
+    </style>
+  </head>
 
-	.btn {
-      padding: 10px 20px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-      display: none; /* Hide button by default until file is verified */
-    }
-    .btn:hover {
-      background-color: #0056b3;
-    }
-    /* Optional: space between icon and text */
-    .btn i {
-      margin-right: 8px;
-    }
-	</style>
-
-
-</head>
-
-<body>
-
-	<div class="highlight-clean" style="padding-bottom: 1;">
-		<div class="container" style="max-width: 100%; margin-bottom: 10px;">
-			<!-- <div style="text-align: center; margin-bottom: 5px;">
+  <body>
+    <div class="highlight-clean" style="padding-bottom: 1">
+      <div class="container" style="max-width: 100%; margin-bottom: 10px">
+        <!-- <div style="text-align: center; margin-bottom: 5px;">
 				<h1 class="text-center" style="display: inline; margin: 0;">UnMix-NeRF: Spectral Unmixing Meets Neural Radiance Fields</h1>
 			</div> -->
-			<div style="text-align: center; margin-bottom: 5px;">
-				<h1 class="text-center" style="display: inline; margin: 0;">
-				  <span 
-					style="
-					  background: linear-gradient(to right, #9e05ff, #04afdc, #93f309, #e7c800, #fe2403);
-					  -webkit-background-clip: text;
-					  -webkit-text-fill-color: transparent;
-					"
-				  >
-					UnMix
-				  </span>
-				  -NeRF: Spectral Unmixing Meets Neural Radiance Fields
-				</h1>
-			  </div>
-		</div>
-		<!-- AUTHORS -->
-		<div style="text-align: center; margin-bottom: 20px;">
-		  <div style="font-size: 1.2em; font-weight: 500; line-height: 1.2;">
-			<span style="color: #2196f3;">Fabian Perez<sup>1</sup></span>,
-			<span style="color: #2196f3;">Sara Rojas<sup>2</sup></span>,
-			<span style="color: #2196f3;">Carlos Hinojosa<sup>2</sup></span>,
-			<span style="color: #2196f3;">Hoover Rueda-Chacón<sup>1</sup></span>,
-			<span style="color: #2196f3;">Bernard Ghanem<sup>2</sup></span>,
-		  </div>
-		  <div style="font-size: 1em; margin-top: 8px;">
-			<sup>1</sup>Universidad Industrial de Santander;
-			<sup>2</sup>King Abdullah University of Science and Technology (KAUST)
-		  </div>
-		  <div style="margin-top: 18px;">
-			<a href="LINK_TO_PAPER" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
-			  <i class="fas fa-file-pdf"></i> Paper
-			</a>
-			<a href="https://github.com/Factral/UnMix-NeRF/blob/21b8cac1aec762c1bcca7778da072ac8e22dd67c/docs/unmix_nerf_supplementary.pdf" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
-			  <i class="fas fa-file-pdf"></i> Supplementary
-			</a>
-			<!-- <a href="LINK_TO_ARXIV" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
+        <div style="text-align: center; margin-bottom: 5px">
+          <h1 class="text-center" style="display: inline; margin: 0">
+            <span
+              style="
+                background: linear-gradient(
+                  to right,
+                  #9e05ff,
+                  #04afdc,
+                  #93f309,
+                  #e7c800,
+                  #fe2403
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+              "
+            >
+              UnMix
+            </span>
+            -NeRF: Spectral Unmixing Meets Neural Radiance Fields
+          </h1>
+        </div>
+      </div>
+      <!-- AUTHORS -->
+      <div style="text-align: center; margin-bottom: 20px">
+        <div style="font-size: 1.2em; font-weight: 500; line-height: 1.2">
+          <span style="color: #2196f3">Fabian Perez<sup>1</sup></span
+          >, <span style="color: #2196f3">Sara Rojas<sup>2</sup></span
+          >, <span style="color: #2196f3">Carlos Hinojosa<sup>2</sup></span
+          >, <span style="color: #2196f3">Hoover Rueda-Chacón<sup>1</sup></span
+          >, <span style="color: #2196f3">Bernard Ghanem<sup>2</sup></span
+          >,
+        </div>
+        <div style="font-size: 1em; margin-top: 8px">
+          <sup>1</sup>Universidad Industrial de Santander; <sup>2</sup>King
+          Abdullah University of Science and Technology (KAUST)
+        </div>
+        <div style="margin-top: 18px">
+          <a
+            href="LINK_TO_PAPER"
+            class="btn"
+            style="
+              display: inline-block;
+              background: #333;
+              color: #fff;
+              margin: 4px;
+              border-radius: 1.2em;
+              font-size: 1em;
+              padding: 0.3em 1em;
+              text-decoration: none;
+            "
+          >
+            <i class="fas fa-file-pdf"></i> Paper
+          </a>
+          <a
+            href="https://github.com/Factral/UnMix-NeRF/blob/21b8cac1aec762c1bcca7778da072ac8e22dd67c/docs/unmix_nerf_supplementary.pdf"
+            class="btn"
+            style="
+              display: inline-block;
+              background: #333;
+              color: #fff;
+              margin: 4px;
+              border-radius: 1.2em;
+              font-size: 1em;
+              padding: 0.3em 1em;
+              text-decoration: none;
+            "
+          >
+            <i class="fas fa-file-pdf"></i> Supplementary
+          </a>
+          <!-- <a href="LINK_TO_ARXIV" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
 			  <i class="fas fa-external-link-alt"></i> arXiv
 			</a> -->
-			<!-- <a href="LINK_TO_VIDEO" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
+          <!-- <a href="LINK_TO_VIDEO" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
 			  <i class="fas fa-play-circle"></i> Video
 			</a> -->
-			<a href="https://github.com/Factral/UnMix-NeRF" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
-			  <i class="fab fa-github"></i> Code
-			</a>
-			<a href="LINK_TO_DATA" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
-			  <i class="fas fa-image"></i> Data
-			</a>
-		  </div>
-		</div>
-	</div>
-	
-	<div style="text-align: center; margin-bottom: 10px;">
-		<img src="assets/intro.png" alt="Introduction Image" style="max-width: 40%; height: auto;" />
-	</div>
+          <a
+            href="https://github.com/Factral/UnMix-NeRF"
+            class="btn"
+            style="
+              display: inline-block;
+              background: #333;
+              color: #fff;
+              margin: 4px;
+              border-radius: 1.2em;
+              font-size: 1em;
+              padding: 0.3em 1em;
+              text-decoration: none;
+            "
+          >
+            <i class="fab fa-github"></i> Code
+          </a>
+          <a
+            href="LINK_TO_DATA"
+            class="btn"
+            style="
+              display: inline-block;
+              background: #333;
+              color: #fff;
+              margin: 4px;
+              border-radius: 1.2em;
+              font-size: 1em;
+              padding: 0.3em 1em;
+              text-decoration: none;
+            "
+          >
+            <i class="fas fa-image"></i> Data
+          </a>
+        </div>
+      </div>
+    </div>
 
-	<p class="text-center" style="padding-top: 10px; margin: 0 auto; max-width: 1100px;">
-		<strong>TL;DR:</strong> We propose UnMix-NeRF, the first method integrating spectral unmixing into NeRF, enabling hyperspectral view synthesis, accurate unsupervised material segmentation, and intuitive material-based scene editing, significantly outperforming existing methods.
-	</p>
-	
-	
-	<hr class="divider" />
-	<div class="container" style="max-width: col-sm-12;">
-		<div class="row">
-			<div class="col-sm-12">
-				<h2 style="font-weight: bold;">Abstract</h2>
-				<p style="text-align: justify">
-					Neural Radiance Field (NeRF)-based segmentation methods focus on object semantics and rely solely on RGB data, lacking intrinsic material properties. This limitation restricts accurate material perception, which is crucial for robotics, augmented reality, simulation, and other applications. We introduce UnMix-NeRF, a framework that integrates spectral unmixing into NeRF, enabling joint hyperspectral novel view synthesis and unsupervised material segmentation. Our method models spectral reflectance via diffuse and specular components, where a learned dictionary of global endmembers represents pure material signatures, and per-point abundances capture their distribution. For material segmentation, we use spectral signature predictions along learned endmembers, allowing unsupervised material clustering. Additionally, UnMix-NeRF enables scene editing by modifying learned endmember dictionaries for flexible material-based appearance manipulation. Extensive experiments validate our approach, demonstrating superior spectral reconstruction and material segmentation to existing methods. The associated data and code for reproduction will be made publicly available.
-				</p>
-			</div>
-		</div>
-	</div>
+    <div style="text-align: center; margin-bottom: 10px">
+      <img
+        src="assets/intro.png"
+        alt="Introduction Image"
+        style="max-width: 40%; height: auto"
+      />
+    </div>
 
-	<!-- <div>
-		<p style="color: red;">TODO: Add PDF viewer for supplementary document</p>
-	</div> -->
-	<!-- Videos -->
-	<!-- Videos with Labels -->
-	<!-- <button class="btn" id="suppBtn">Open Supplementary</button> -->
-	<div style="text-align: center; margin-bottom: 10px;">
-		<button class="btn" id="suppBtn">
-			<i class="fas fa-file-pdf"></i> Open Supplementary
-		</button>
-	</div>
-	
-	<hr class="divider" />
-	<div class="container" style="max-width: col-sm-12;">
-		<h2 style="font-weight: bold; text-align: center;">Hotdog Scene</h2>
-		<!-- <p> Our UnMix-NeRF method ...</p> -->
-		<!-- <div class="row">
+    <p
+      class="text-center"
+      style="padding-top: 10px; margin: 0 auto; max-width: 1100px"
+    >
+      <strong>TL;DR:</strong> We propose UnMix-NeRF, the first method
+      integrating spectral unmixing into NeRF, enabling hyperspectral view
+      synthesis, accurate unsupervised material segmentation, and intuitive
+      material-based scene editing, significantly outperforming existing
+      methods.
+    </p>
+
+    <!-- <hr class="divider" /> -->
+	<br>
+    <div class="container" style="max-width: col-sm-12">
+      <!-- <h2 style="font-weight: bold; text-align: center">Hotdog Scene</h2> -->
+      <!-- <p> Our UnMix-NeRF method ...</p> -->
+      <!-- <div class="row">
 			<div class="text-center">
 				<video src="assets/hotdog/rgb/rgb_hotdog.mp4" alt="Domain: Animated face; Edition: adding glasses" controls autoplay loop muted style="width: 100%; height: auto;"></video>
 				<p style="margin-top: 10px;">RGB</p>
 			</div> -->
-			<!-- <div class="col-md-4 text-center">
+      <!-- <div class="col-md-4 text-center">
 				<video src="assets/video/Animation_Rotation_Left.mp4" alt="Domain: Animated face; Edition: rotation left" controls autoplay loop muted style="width: 100%; height: auto;"></video>
 				<p style="margin-top: 10px;">Rotation (Left)</p>
 			</div>
@@ -203,109 +277,301 @@
 				<video src="assets/video/Animation_Rotation_Right.mp4" alt="Domain: Animated face; Edition: rotation right" controls autoplay loop muted style="width: 100%; height: auto;"></video>
 				<p style="margin-top: 10px;">Rotation (Right)</p>
 			</div> -->
-		<!-- </div> -->
-		<div class="row" style="justify-content: center;">
-			<div class="col-md-4 text-center">
-				<video src="assets/hotdog/rgb/rgb_hotdog.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">RGB</p>
-			</div>
-			<div class="col-md-4 text-center">
-				<video src="assets/hotdog/seg/seg.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">Unsupervised Material Segmentation</p>
-			</div>
-			<div class="col-md-4 text-center">
-				<video src="assets/hotdog/edit1/edit1.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">Scene Editing</p>
-			</div>
-		</div>
+      <!-- </div> -->
+      <div class="row" style="justify-content: center">
+        <div class="col-md-4 text-center">
+          <video
+            src="assets/hotdog/rgb/rgb_hotdog.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">RGB</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <video
+            src="assets/hotdog/seg/seg.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">Unsupervised Material Segmentation</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <video
+            src="assets/hotdog/edit1/edit1.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">Scene Editing</p>
+        </div>
+      </div>
 
-		<hr class="divider" />
-		<h6 style="font-weight: bold; text-align: center; margin-bottom: 15px;">Spectral Reflectances</h6>
-		<div class="row" style="justify-content: center;">
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/wvs/450nm.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">450 nm</p>
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/wvs/500nm.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">500 nm</p>
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/wvs/550nm.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">550 nm</p>
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/wvs/600nm.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">600 nm</p>
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/wvs/650nm.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">650 nm</p>
-			</div>
-		</div>
-		<hr class="divider" />
-		<h6 style="font-weight: bold; text-align: center; margin-bottom: 15px;">Visualization of Learned Material Abundances</h6>
-		<div class="row" style="justify-content: center;">
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/abundances/abundances1.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">450 nm</p> -->
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/abundances/abundances3.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">500 nm</p> -->
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/abundances/abundances4.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">550 nm</p> -->
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/abundances/abundances5.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">600 nm</p> -->
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/abundances/abundances6.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">650 nm</p> -->
-			</div>
-		</div>
-		<hr class="divider" />
-		<h6 style="font-weight: bold; text-align: center; margin-bottom: 15px;">Specular Reflectances</h6>
-		<div class="row" style="justify-content: center;">
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/specular/specular1.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">450 nm</p> -->
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/specular/specular2.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">500 nm</p> -->
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/specular/specular3.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">550 nm</p> -->
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/specular/specular4.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">600 nm</p> -->
-			</div>
-			<div class="col-md-2 text-center">
-				<video src="assets/hotdog/specular/specular5.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<!-- <p style="margin-top: 10px;">650 nm</p> -->
-			</div>
-		</div>
+      <hr class="divider" />
+      <div class="container" style="max-width: col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <h2 style="font-weight: bold">Abstract</h2>
+            <p style="text-align: justify">
+              Neural Radiance Field (NeRF)-based segmentation methods focus on
+              object semantics and rely solely on RGB data, lacking intrinsic
+              material properties. This limitation restricts accurate material
+              perception, which is crucial for robotics, augmented reality,
+              simulation, and other applications. We introduce UnMix-NeRF, a
+              framework that integrates spectral unmixing into NeRF, enabling
+              joint hyperspectral novel view synthesis and unsupervised material
+              segmentation. Our method models spectral reflectance via diffuse
+              and specular components, where a learned dictionary of global
+              endmembers represents pure material signatures, and per-point
+              abundances capture their distribution. For material segmentation,
+              we use spectral signature predictions along learned endmembers,
+              allowing unsupervised material clustering. Additionally,
+              UnMix-NeRF enables scene editing by modifying learned endmember
+              dictionaries for flexible material-based appearance manipulation.
+              Extensive experiments validate our approach, demonstrating
+              superior spectral reconstruction and material segmentation to
+              existing methods. The associated data and code for reproduction
+              will be made publicly available.
+            </p>
+          </div>
+        </div>
+      </div>
 
-		<hr class="divider" />
-		<h6 style="font-weight: bold; text-align: center; margin-bottom: 15px;">Endmembers Learning During Training</h6>
-		<div class="row" style="justify-content: center;">
-		<div class="col-md-6 text-center">
-			<img src="assets/hotdog/endmembers_learning.gif" alt="Endmember Learning" style="width: 100%; height: auto;" />
-		</div>
-		</div>
-<!-- 
+	  <hr class="divider" />
+      <div class="container" style="max-width: col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <h2 style="font-weight: bold">Method</h2>
+            <p style="text-align: justify">
+              ....
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div>
+		<p style="color: red;">TODO: Add PDF viewer for supplementary document</p>
+	</div> -->
+      <!-- Videos -->
+      <!-- Videos with Labels -->
+      <!-- <button class="btn" id="suppBtn">Open Supplementary</button> -->
+      <!-- <div style="text-align: center; margin-bottom: 10px">
+        <button class="btn" id="suppBtn">
+          <i class="fas fa-file-pdf"></i> Open Supplementary
+        </button>
+      </div> -->
+
+      <hr class="divider" />
+      <h6 style="font-weight: bold; text-align: center; margin-bottom: 15px">
+        Spectral Reflectances
+      </h6>
+      <div class="row" style="justify-content: center">
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/wvs/450nm.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">450 nm</p>
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/wvs/500nm.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">500 nm</p>
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/wvs/550nm.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">550 nm</p>
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/wvs/600nm.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">600 nm</p>
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/wvs/650nm.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">650 nm</p>
+        </div>
+      </div>
+      <hr class="divider" />
+      <h6 style="font-weight: bold; text-align: center; margin-bottom: 15px">
+        Visualization of Learned Material Abundances
+      </h6>
+      <div class="row" style="justify-content: center">
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/abundances/abundances1.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">450 nm</p> -->
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/abundances/abundances3.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">500 nm</p> -->
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/abundances/abundances4.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">550 nm</p> -->
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/abundances/abundances5.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">600 nm</p> -->
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/abundances/abundances6.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">650 nm</p> -->
+        </div>
+      </div>
+      <hr class="divider" />
+      <h6 style="font-weight: bold; text-align: center; margin-bottom: 15px">
+        Specular Reflectances
+      </h6>
+      <div class="row" style="justify-content: center">
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/specular/specular1.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">450 nm</p> -->
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/specular/specular2.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">500 nm</p> -->
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/specular/specular3.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">550 nm</p> -->
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/specular/specular4.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">600 nm</p> -->
+        </div>
+        <div class="col-md-2 text-center">
+          <video
+            src="assets/hotdog/specular/specular5.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">650 nm</p> -->
+        </div>
+      </div>
+
+      <hr class="divider" />
+      <h6 style="font-weight: bold; text-align: center; margin-bottom: 15px">
+        Endmembers Learning During Training
+      </h6>
+      <div class="row" style="justify-content: center">
+        <div class="col-md-6 text-center">
+          <img
+            src="assets/hotdog/endmembers_learning.gif"
+            alt="Endmember Learning"
+            style="width: 100%; height: auto"
+          />
+        </div>
+      </div>
+      <!-- 
 		isualization of learned material abundances for the
 Anacampseros scene in the BaySpec dataset. Each image corre-
 sponds to abundance maps, highlighting distinct materials in the
 scene. -->
 
-		<!-- <div class="row">
+      <!-- <div class="row">
 			<div class="col-md-4 text-center">
 				<video src="assets/video/Kamala_Glasses.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
 				<p style="margin-top: 10px;">Glasses (+)</p>
@@ -334,119 +600,116 @@ scene. -->
 				<p style="margin-top: 10px;">Smile (+)</p>
 			</div>
 		</div> -->
-	</div>
+    </div>
 
-	<!-- <hr class="divider" />
+    <!-- <hr class="divider" />
 	<div class="container" style="max-width: col-sm-12;">
 		<h2 style="font-weight: bold;">Abundance Visualization</h2>
 		<!-- <p> Our UnMix-NeRF method edits images in different domains using different editing parameters. Our method begins by reconstructing (inverting) the original image and 
 			then applying edits according to the specified directions. Below, we showcase examples of how our method performs across multiple directions (image edits) and 
 			varying levels of editing intensity.</p> -->
-		<!-- <div class="row">
+    <!-- <div class="row">
 			<div class="col-md-4 text-center">
 				<video src="assets/edits/edits.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
 				<p style="margin-top: 10px;">Image Edits at Different Power Levels</p>
 			</div>
 		</div> -->
-	<!-- </div> -->
+    <!-- </div> -->
 
-	<script>
-		// Function to check if a file exists using a HEAD request
-		function checkFile(url) {
-		  return fetch(url, { method: 'HEAD' })
-			.then(response => response.ok)
-			.catch(error => {
-			  console.error("Error checking file existence:", error);
-			  return false;
-			});
-		}
-	
-		// Check if unmix_nerf_supplementary.pdf exists and, if so, display the button
-		checkFile("unmix_nerf_supplementary.pdf").then(exists => {
-		  if (exists) {
-			document.getElementById("suppBtn").style.display = "inline-block";
-		  }
-		});
-	
-		// Add a click event to open the supplementary file
-		document.getElementById("suppBtn").addEventListener("click", function() {
-		  window.open("unmix_nerf_supplementary.pdf", "_blank");
-		});
-	</script>
-	
-	<script src="https://polyfill.io/v3/polyfill.js?features=IntersectionObserver"></script>
-	<script src="assets/js/yall.js"></script>
-	<script>
-		yall({
-			observeChanges: true
-		});
-	</script>
-	<script src="assets/js/scripts.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js">
-	</script>
-	<script src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/js/webflow.fd002feec.js"></script>
-	<!-- Import the component -->
+    <script>
+      // Function to check if a file exists using a HEAD request
+      function checkFile(url) {
+        return fetch(url, { method: "HEAD" })
+          .then((response) => response.ok)
+          .catch((error) => {
+            console.error("Error checking file existence:", error);
+            return false;
+          });
+      }
 
-	<script>
-		document.addEventListener('DOMContentLoaded', (event) => {
-			var video = document.getElementById('speed025');
-			video.playbackRate = 0.1; // Play at half speed
-		});
-	</script>
+      // Check if unmix_nerf_supplementary.pdf exists and, if so, display the button
+      checkFile("unmix_nerf_supplementary.pdf").then((exists) => {
+        if (exists) {
+          document.getElementById("suppBtn").style.display = "inline-block";
+        }
+      });
 
-<!-- Initialize sliders: Face -->
-	<script>
-		new BeforeAfter({
-			id: '#example1_ori'
-		});
-	</script>
+      // Add a click event to open the supplementary file
+      document.getElementById("suppBtn").addEventListener("click", function () {
+        window.open("unmix_nerf_supplementary.pdf", "_blank");
+      });
+    </script>
 
-	<script>
-		new BeforeAfter({
-			id: '#example1'
-		});
-	</script>
+    <script src="https://polyfill.io/v3/polyfill.js?features=IntersectionObserver"></script>
+    <script src="assets/js/yall.js"></script>
+    <script>
+      yall({
+        observeChanges: true,
+      });
+    </script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/js/webflow.fd002feec.js"></script>
+    <!-- Import the component -->
 
-	<script>
-		new BeforeAfter({
-			id: '#example2_ori'
-		});
-	</script>
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        var video = document.getElementById("speed025");
+        video.playbackRate = 0.1; // Play at half speed
+      });
+    </script>
 
-	<script>
-		new BeforeAfter({
-			id: '#example2'
-		});
-	</script>
+    <!-- Initialize sliders: Face -->
+    <script>
+      new BeforeAfter({
+        id: "#example1_ori",
+      });
+    </script>
 
-	<script>
-		new BeforeAfter({
-			id: '#example3_ori'
-		});
-	</script>
+    <script>
+      new BeforeAfter({
+        id: "#example1",
+      });
+    </script>
 
-	<script>
-		new BeforeAfter({
-			id: '#example3'
-		});
-	</script>
+    <script>
+      new BeforeAfter({
+        id: "#example2_ori",
+      });
+    </script>
 
+    <script>
+      new BeforeAfter({
+        id: "#example2",
+      });
+    </script>
 
-	<script>
-		new BeforeAfter({
-			id: '#example4_ori'
-		});
-	</script>
+    <script>
+      new BeforeAfter({
+        id: "#example3_ori",
+      });
+    </script>
 
-	<script>
-		new BeforeAfter({
-			id: '#example4'
-		});
-	</script>
-	
+    <script>
+      new BeforeAfter({
+        id: "#example3",
+      });
+    </script>
 
-	<!-- <script>
+    <script>
+      new BeforeAfter({
+        id: "#example4_ori",
+      });
+    </script>
+
+    <script>
+      new BeforeAfter({
+        id: "#example4",
+      });
+    </script>
+
+    <!-- <script>
 		new BeforeAfter({
 			id: '#example2'
 		});
@@ -458,12 +721,8 @@ scene. -->
 		});
 	</script> -->
 
-
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-
-</body>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  </body>
 </html>
