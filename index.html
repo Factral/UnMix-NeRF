@@ -179,18 +179,18 @@
 		<!-- AUTHORS -->
 		<div style="text-align: center; margin-bottom: 20px;">
 		  <div style="font-size: 1.2em; font-weight: 500; line-height: 1.2;">
-			<span style="color: #2196f3;">Fabian Perez</span><sup>1</sup>,&nbsp 
-			<span style="color: #2196f3;">Sara Rojas</span><sup>2</sup>,&nbsp 
-			<span style="color: #2196f3;">Carlos Hinojosa</span><sup>2</sup>,&nbsp 
-			<span style="color: #2196f3;">Hoover Rueda-Chacón</span><sup>1</sup>,&nbsp 
-			<span style="color: #2196f3;">Bernard Ghanem</span><sup>2</sup>
+			<span style="color: #2196f3;"><a href="https://www.factral.co/">Fabian Perez</a></span><sup>1</sup>,&nbsp 
+			<span style="color: #2196f3;"><a href="https://sararoma95.github.io/sr/">Sara Rojas</a></span><sup>2</sup>,&nbsp 
+			<span style="color: #2196f3;"><a href="https://carloshinojosa.me/">Carlos Hinojosa</a></span><sup>2</sup>,&nbsp 
+			<span style="color: #2196f3;"><a href="https://www.hfarueda.com/">Hoover Rueda-Chacón</a></span><sup>1</sup>,&nbsp 
+			<span style="color: #2196f3;"><a href="https://www.bernardghanem.com/">Bernard Ghanem</a></span><sup>2</sup>
 		  </div>
 		  <div style="font-size: 1em; margin-top: 8px;">
 			<sup>1</sup>Universidad Industrial de Santander
 			&nbsp&nbsp &nbsp  <sup>2</sup>King Abdullah University of Science and Technology (KAUST)
 		  </div>
 		  <div style="margin-top: 18px;">
-			<a href="https://arxiv.org/pdf/2301.03580" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
+			<a href="https://arxiv.org/pdf/2506.21884" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
 			  <i class="fas fa-file-pdf"></i> Paper
 			</a>
 			<a href="https://github.com/Factral/UnMix-NeRF/blob/21b8cac1aec762c1bcca7778da072ac8e22dd67c/docs/unmix_nerf_supplementary.pdf" class="btn" style="display: inline-block; background: #333; color: #fff; margin: 4px; border-radius: 1.2em; font-size: 1em; padding: 0.3em 1em; text-decoration: none;">
@@ -282,6 +282,43 @@
         </div>
       </div>
 
+
+      <div class="row" style="justify-content: center">
+        <div class="col-md-4 text-center">
+          <video
+            src="assets/ajar/seg_1_segment0.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">RGB</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <video
+            src="assets/ajar/seg_1_segment2.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">Unsupervised Material Segmentation</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <video
+            src="assets/ajar/seg_1_segment1.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <p style="margin-top: 10px">PCA Visualization</p>
+        </div>
+      </div>
+
       <hr class="divider" />
       <div class="container" style="max-width: col-sm-12">
         <div class="row">
@@ -305,8 +342,7 @@
               dictionaries for flexible material-based appearance manipulation.
               Extensive experiments validate our approach, demonstrating
               superior spectral reconstruction and material segmentation to
-              existing methods. The associated data and code for reproduction
-              will be made publicly available.
+              existing methods.
             </p>
           </div>
         </div>
@@ -317,9 +353,40 @@
         <div class="row">
           <div class="col-sm-12">
             <h2 style="font-weight: bold">Method</h2>
-            <p style="text-align: justify">
-              ....
-            </p>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+              <img src="assets/framework.png" alt="UnMix-NeRF Framework" style="max-width: 100%; height: auto;" />
+            </div>
+
+              <h4 style="font-weight: bold">Spectral Unmixing Field</h4>
+              <p style="text-align: justify">
+                We extend standard NeRF by incorporating the Extended Linear Mixing Model (ELMM) at each 3D point. An MLP predicts both a density and a latent feature, from which two heads produce (i) scaling factors via a sigmoid to model local spectral variability, and (ii) raw abundances plus a tint factor normalized with softmax to enforce non-negativity and sum-to-one. Diffuse reflectance is then computed by mixing learned global endmember spectra with these abundances.
+              </p>
+
+              <h4 style="font-weight: bold">Specular Field</h4>
+              <p style="text-align: justify">
+                To capture view-dependent effects, we add a specular branch inspired by Ref-NeRF. It takes the same latent feature and viewing direction to predict a specular spectrum, modulated by the tint factor, and blends it with the diffuse component under the dichromatic model.
+              </p>
+
+              <h4 style="font-weight: bold">Volume Rendering and Camera Response</h4>
+              <p style="text-align: justify">
+                We integrate spectral radiance and per-point abundances along camera rays via volumetric rendering. The resulting hyperspectral signature is mapped to sRGB using a camera spectral response matrix, ensuring physically accurate color reproduction.
+              </p>
+
+              <h4 style="font-weight: bold">Material Segmentation via Cluster Probe</h4>
+              <p style="text-align: justify">
+                Unsupervised material segmentation is obtained by treating learned endmembers as cluster centers: each rendered abundance vector is assigned to the material whose endmember maximizes the normalized inner product, yielding pixel-accurate clusters without external supervision.
+              </p>
+
+              <h4 style="font-weight: bold">Loss Function</h4>
+              <p style="text-align: justify">
+                We jointly optimize hyperspectral and RGB reconstruction with an L2 loss on predicted spectra and an RGB loss after spectral-to-RGB projection. Physical consistency is enforced via non-negativity and sum-to-one constraints on abundances, balanced by tunable weights.
+              </p>
+
+              <h4 style="font-weight: bold">Implementation Details</h4>
+              <p style="text-align: justify">
+                Our model is built in Nerfstudio on top of Nerfacto, using Nerfacc for fast rendering. We employ a 16-dimensional hidden feature MLP, gradient scaling by squared ray distance, and optimize with Adam plus an exponential LR scheduler on an NVIDIA A100 GPU. Endmembers are clamped to valid spectral ranges and chosen per scene according to the number of distinct materials. For more details and code, please refer to our <a href="https://github.com/Factral/UnMix-NeRF">GitHub repo</a>.
+              </p>
           </div>
         </div>
       </div>
@@ -337,70 +404,77 @@
       </div> -->
 
       <hr class="divider" />
-      <h6 style="font-weight: bold; text-align: center; margin-bottom: 15px">
-        Spectral Reflectances
-      </h6>
-      <div class="row" style="justify-content: center">
-        <div class="col-md-2 text-center">
-          <video
-            src="assets/hotdog/wvs/450nm.mp4"
-            controls
-            autoplay
-            loop
-            muted
-            style="width: 100%; height: auto"
-          ></video>
-          <p style="margin-top: 10px">450 nm</p>
-        </div>
-        <div class="col-md-2 text-center">
-          <video
-            src="assets/hotdog/wvs/500nm.mp4"
-            controls
-            autoplay
-            loop
-            muted
-            style="width: 100%; height: auto"
-          ></video>
-          <p style="margin-top: 10px">500 nm</p>
-        </div>
-        <div class="col-md-2 text-center">
-          <video
-            src="assets/hotdog/wvs/550nm.mp4"
-            controls
-            autoplay
-            loop
-            muted
-            style="width: 100%; height: auto"
-          ></video>
-          <p style="margin-top: 10px">550 nm</p>
-        </div>
-        <div class="col-md-2 text-center">
-          <video
-            src="assets/hotdog/wvs/600nm.mp4"
-            controls
-            autoplay
-            loop
-            muted
-            style="width: 100%; height: auto"
-          ></video>
-          <p style="margin-top: 10px">600 nm</p>
-        </div>
-        <div class="col-md-2 text-center">
-          <video
-            src="assets/hotdog/wvs/650nm.mp4"
-            controls
-            autoplay
-            loop
-            muted
-            style="width: 100%; height: auto"
-          ></video>
-          <p style="margin-top: 10px">650 nm</p>
+      <div class="container" style="max-width: col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <h2 style="font-weight: bold">Visual Results</h2>
+            <h3>Scene: Hotdog</h3>
+            <h4 style="font-weight: bold; text-align: center; margin-bottom: 15px">
+              Spectral Reflectances
+            </h4>
+            <div class="row" style="justify-content: center">
+              <div class="col-md-2 text-center">
+                <video
+                  src="assets/hotdog/wvs/450nm.mp4"
+                  controls
+                  autoplay
+                  loop
+                  muted
+                  style="width: 100%; height: auto"
+                ></video>
+                <p style="margin-top: 10px">450 nm</p>
+              </div>
+              <div class="col-md-2 text-center">
+                <video
+                  src="assets/hotdog/wvs/500nm.mp4"
+                  controls
+                  autoplay
+                  loop
+                  muted
+                  style="width: 100%; height: auto"
+                ></video>
+                <p style="margin-top: 10px">500 nm</p>
+              </div>
+              <div class="col-md-2 text-center">
+                <video
+                  src="assets/hotdog/wvs/550nm.mp4"
+                  controls
+                  autoplay
+                  loop
+                  muted
+                  style="width: 100%; height: auto"
+                ></video>
+                <p style="margin-top: 10px">550 nm</p>
+              </div>
+              <div class="col-md-2 text-center">
+                <video
+                  src="assets/hotdog/wvs/600nm.mp4"
+                  controls
+                  autoplay
+                  loop
+                  muted
+                  style="width: 100%; height: auto"
+                ></video>
+                <p style="margin-top: 10px">600 nm</p>
+              </div>
+              <div class="col-md-2 text-center">
+                <video
+                  src="assets/hotdog/wvs/650nm.mp4"
+                  controls
+                  autoplay
+                  loop
+                  muted
+                  style="width: 100%; height: auto"
+                ></video>
+                <p style="margin-top: 10px">650 nm</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <hr class="divider" />
-      <h6 style="font-weight: bold; text-align: center; margin-bottom: 15px">
+      <h4 style="font-weight: bold; text-align: center; margin-bottom: 15px">
         Visualization of Learned Material Abundances
-      </h6>
+      </h4>
       <div class="row" style="justify-content: center">
         <div class="col-md-2 text-center">
           <video
@@ -458,10 +532,9 @@
           <!-- <p style="margin-top: 10px;">650 nm</p> -->
         </div>
       </div>
-      <hr class="divider" />
-      <h6 style="font-weight: bold; text-align: center; margin-bottom: 15px">
+      <h4 style="font-weight: bold; text-align: center; margin-bottom: 15px">
         Specular Reflectances
-      </h6>
+      </h4>
       <div class="row" style="justify-content: center">
         <div class="col-md-2 text-center">
           <video
@@ -519,70 +592,148 @@
           <!-- <p style="margin-top: 10px;">650 nm</p> -->
         </div>
       </div>
-
-      <hr class="divider" />
-      <h6 style="font-weight: bold; text-align: center; margin-bottom: 15px">
-        Endmembers Learning During Training
-      </h6>
+      <h3>Scene: Ajar</h3>
+      <h4 style="font-weight: bold; text-align: center; margin-bottom: 15px">
+        Visualization of Learned Material Abundances
+      </h4>
       <div class="row" style="justify-content: center">
-        <div class="col-md-6 text-center">
-          <img
-            src="assets/hotdog/endmembers_learning.gif"
-            alt="Endmember Learning"
+        <div class="col-md-3 text-center">
+          <video
+            src="assets/ajar/random_1_segment3.mp4"
+            controls
+            autoplay
+            loop
+            muted
             style="width: 100%; height: auto"
-          />
+          ></video>
+          <!-- <p style="margin-top: 10px;">450 nm</p> -->
+        </div>
+        <div class="col-md-3 text-center">
+          <video
+            src="assets/ajar/random_1_segment5.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">500 nm</p> -->
+        </div>
+        <div class="col-md-3 text-center">
+          <video
+            src="assets/ajar/random_1_segment6.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">550 nm</p> -->
+        </div>
+        <div class="col-md-3 text-center">
+          <video
+            src="assets/ajar/random_1_segment7.mp4"
+            controls
+            autoplay
+            loop
+            muted
+            style="width: 100%; height: auto"
+          ></video>
+          <!-- <p style="margin-top: 10px;">600 nm</p> -->
         </div>
       </div>
-      <!-- 
-		isualization of learned material abundances for the
-Anacampseros scene in the BaySpec dataset. Each image corre-
-sponds to abundance maps, highlighting distinct materials in the
-scene. -->
+      <hr class="divider" />
+      <div class="container" style="max-width: col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <h2 style="font-weight: bold">Quantitative Results</h2>
+            <br/>
+            <div class="row" style="justify-content: center; margin-bottom: 30px;">
+              <div class="col-md-6 text-center">
+                <p style="margin-top: 10px; font-weight: bold;">SURF Optics Dataset</p>
+                <img
+                  src="assets/surf_optics_table.png"
+                  alt="SURF Optics Dataset Results"
+                  style="max-width: 100%; height: auto;"
+                />
+              </div>
+              <div class="col-md-6 text-center">
+                <p style="margin-top: 10px; font-weight: bold;">BaySpec Dataset</p>
+                <img
+                  src="assets/bayspec_table.png"
+                  alt="BaySpec Dataset Results"
+                  style="max-width: 100%; height: auto;"
+                />
+              </div>
+            </div>
 
-      <!-- <div class="row">
-			<div class="col-md-4 text-center">
-				<video src="assets/video/Kamala_Glasses.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">Glasses (+)</p>
-			</div>
-			<div class="col-md-4 text-center">
-				<video src="assets/video/Kamala_Rotation_Left.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">Rotation (Left)</p>
-			</div>
-			<div class="col-md-4 text-center">
-				<video src="assets/video/Kamala_Rotation_Right.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">Rotation (Right)</p>
-			</div>
-		</div>
+            <p style="text-align: justify">
+              On the SURF Optics dataset (left), UnMix-NeRF outperforms other methods in both scenes. In the Rosemary scene, we achieve a PSNR of 28.91 dB, a 2.14 dB improvement over the next best HyperGS (26.77 dB), while cutting RMSE from 0.0445 to 0.0332 (25 % reduction) and SAM from 0.0021° to 0.0019° (10 % reduction). Although HyperGS still records a slightly higher SSIM (0.9845 vs. our 0.9355), our approach delivers the lowest spectral and intensity errors. In the Basil scene, UnMix-NeRF records 29.21 dB (+3.91 dB), RMSE of 0.0364 (36 % lower), and SAM of 0.0043° (16 % lower), while also surpassing HyperGS in SSIM (0.9584 vs. 0.9503). This shows that explicitly modeling endmembers and abundances yields dramatically improved spectral fidelity without sacrificing structural quality.
+            </p>
+            <p style="text-align: justify">
+              On the BaySpec dataset (right), UnMix-NeRF consistently outperforms HyperGS across all three sensor scenes. For Pinecone, we reach 27.13 dB (+0.13 dB), reduce RMSE by 4 % (0.0429 vs. 0.0447) and SAM by 7 % (0.0287° vs. 0.0309°), and boost SSIM by 0.066. In Caladium, our method delivers 30.08 dB (+2.38 dB), cuts RMSE by 25 % (0.0312 vs. 0.0414) and SAM by 14 % (0.0237° vs. 0.0277°). Also, in the Anacampseros scene, we achieve 28.20 dB (+2.0 dB), raise SSIM by 0.037, and slash spectral angle by 56 % (0.0154° vs. 0.0353°).
+            </p>
+          </div>
+        </div>
+      </div>
 
-		<div class="row">
-			<div class="col-md-4 text-center">
-				<video src="assets/video/Michael_Young.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">Age (-)</p>
-			</div>
-			<div class="col-md-4 text-center">
-				<video src="assets/video/Michael_Old.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">Age (+)</p>
-			</div>
-			<div class="col-md-4 text-center">
-				<video src="assets/video/Michael_Smile.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">Smile (+)</p>
-			</div>
-		</div> -->
+      <hr class="divider" />
+      <div class="container" style="max-width: col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <h2 style="font-weight: bold">More Visual Results</h2>
+            <h4 style="font-weight: bold; text-align: center; margin-bottom: 15px">
+              Endmembers Learning During Training
+            </h4>
+            <div class="row" style="justify-content: center">
+              <div class="col-md-6 text-center">
+                <img
+                  src="assets/hotdog/endmembers_learning.gif"
+                  alt="Endmember Learning"
+                  style="width: 100%; height: auto"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+      <div class="container" style="max-width: col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <h2 style="font-weight: bold">Citation</h2>
+            <p>If you find this work useful, please cite our paper:</p>
+             
+            <div style="background-color: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 20px 0; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.4;">
+              <pre style="margin: 0; white-space: pre-wrap;">@inproceedings{perez2025unmix,
+              title={UnMix-NeRF: Spectral Unmixing Meets Neural Radiance Fields},
+              author={Perez, Fabian and Rojas, Sara and Hinojosa, Carlos and Rueda-Chac{\'o}n, Hoover and Ghanem, Bernard},
+              booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+              year={2025}
+            }</pre>
+            </div>
+             
+          </div>
+        </div>
+      </div>
+      
+      <div style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+         <h4 style="font-weight: bold; margin-bottom: 15px; color: #333;">Contact</h4>
+         <p style="margin-bottom: 10px;">For any questions, please feel free to contact:</p>
+         <ul style="list-style: none; padding-left: 0; margin-bottom: 20px;">
+           <li style="margin-bottom: 8px;"><strong>Fabian Perez:</strong> <a href="mailto:nelsonfabiancs8@gmail.com">nelsonfabiancs8@gmail.com</a></li>
+           <li style="margin-bottom: 8px;"><strong>Carlos Hinojosa:</strong> <a href="mailto:carlos.hinojosa@kaust.edu.sa">carlos.hinojosa@kaust.edu.sa</a></li>
+         </ul>
+         
+         <hr style="margin: 20px 0; border: none; border-top: 1px solid #dee2e6;">
+         
+         <div style="font-size: 14px; color: #666; line-height: 1.5;">
+           <p style="margin-bottom: 8px;">This website is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+           <p style="margin-bottom: 0;">We borrow the source code for our website. We sincerely appreciate <a href="https://dreamfusion3d.github.io/" target="_blank">DreamFusion</a> authors for their awesome templates.</p>
+         </div>
+      </div>
     </div>
-
-    <!-- <hr class="divider" />
-	<div class="container" style="max-width: col-sm-12;">
-		<h2 style="font-weight: bold;">Abundance Visualization</h2>
-		<!-- <p> Our UnMix-NeRF method edits images in different domains using different editing parameters. Our method begins by reconstructing (inverting) the original image and 
-			then applying edits according to the specified directions. Below, we showcase examples of how our method performs across multiple directions (image edits) and 
-			varying levels of editing intensity.</p> -->
-    <!-- <div class="row">
-			<div class="col-md-4 text-center">
-				<video src="assets/edits/edits.mp4" controls autoplay loop muted style="width: 100%; height: auto;"></video>
-				<p style="margin-top: 10px;">Image Edits at Different Power Levels</p>
-			</div>
-		</div> -->
-    <!-- </div> -->
 
     <script>
       // Function to check if a file exists using a HEAD request
@@ -701,6 +852,8 @@ scene. -->
 			});
 		});
 	</script>
+
+    </div>
 
 </body>
 
