@@ -18,7 +18,7 @@
 
   <div align="center">
 
-**[Fabian Perez](https://github.com/Factral)¹² · [Sara Rojas]()² · [Carlos Hinojosa](https://carloshinojosa.me/)² · [Hoover Rueda-Chacón](http://hfarueda.com/)¹ · [Bernard Ghanem]()²**
+**[Fabian Perez](https://github.com/Factral)¹² · [Sara Rojas](https://sararoma95.github.io/sr/)² · [Carlos Hinojosa](https://carloshinojosa.me/)² · [Hoover Rueda-Chacón](http://hfarueda.com/)¹ · [Bernard Ghanem](https://www.bernardghanem.com/)²**
 
 ¹Universidad Industrial de Santander · ²King Abdullah University of Science and Technology (KAUST)
 
