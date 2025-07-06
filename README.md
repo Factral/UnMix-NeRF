@@ -187,7 +187,6 @@ After training completion, the following are automatically saved:
 - **Trained model**: `outputs/` - Trained model weights
 
 
-
 ## 🎓 Citation
 
 If you find this work useful, please cite our paper:
@@ -204,8 +203,6 @@ If you find this work useful, please cite our paper:
 ## 🙏 Acknowledgments
 
 - Built upon [Nerfstudio](https://docs.nerf.studio/) framework
-- Inspired by spectral unmixing techniques in remote sensing
-- Thanks to the computer vision community for valuable feedback
 
 ---
 
