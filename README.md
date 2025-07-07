@@ -4,6 +4,17 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2301.03580-b31b1b.svg)](https://arxiv.org/pdf/2301.03580)
 [![Project Page](https://img.shields.io/badge/Project-Page-green.svg)](https://factral.github.io/unmixnerf)
+[![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-orange?logo=huggingface)](https://huggingface.co/datasets/Factral/NeSpoF-segmentation)
+
+
+
+
+
+
+
+
+Preguntar a ChatGPT
+
 </div>
 
 <div>
