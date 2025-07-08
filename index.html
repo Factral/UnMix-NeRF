@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+     <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>  -->
     <script
       id="MathJax-script"
       async
@@ -747,11 +747,11 @@
       }
 
       // Check if unmix_nerf_supplementary.pdf exists and, if so, display the button
-      checkFile("unmix_nerf_supplementary.pdf").then((exists) => {
-        if (exists) {
-          document.getElementById("suppBtn").style.display = "inline-block";
-        }
-      });
+      //checkFile("unmix_nerf_supplementary.pdf").then((exists) => {
+      //  if (exists) {
+      //    document.getElementById("suppBtn").style.display = "inline-block";
+      //  }
+    //  });
 
       // Add a click event to open the supplementary file
       document.getElementById("suppBtn").addEventListener("click", function () {
@@ -759,7 +759,7 @@
       });
     </script>
 
-    <script src="https://polyfill.io/v3/polyfill.js?features=IntersectionObserver"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.js?features=IntersectionObserver"></script> -->
     <script src="assets/js/yall.js"></script>
     <script>
       yall({
