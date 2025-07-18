@@ -118,7 +118,7 @@ We evaluate UnMix-NeRF on the following hyperspectral datasets:
 
 - [NeSpoF](https://drive.google.com/drive/folders/1W7apuXPA3EkyUs8VgZgwdMpnc96aLXXJ) for synthetic scenes,
 - [NeSpoF-Segmentation](https://huggingface.co/datasets/Factral/NeSpoF-segmentation) (our extended version with material labels)
-- [HS-NeRF](https://docs.google.com/document/d/1kD_72gDf_tr3QhBVcyzQ5HV8HkqAW6QOi-zHVwkBrNg/edit?usp=sharing) dataset containing BaySpec and SURF Optics real-world captures
+- [HS-NeRF](https://docs.google.com/document/d/1kD_72gDf_tr3QhBVcyzQ5HV8HkqAW6QOi-zHVwkBrNg/edit?usp=sharing) dataset containing BaySpec and Surface Optics real-world captures
 
 ### Optional: Endmember Initialization
 
