@@ -39,7 +39,6 @@
 Neural Radiance Field (NeRF)-based segmentation methods focus on object semantics and rely solely on RGB data, lacking intrinsic material properties. This limitation restricts accurate material perception, which is crucial for robotics, augmented reality, simulation, and other applications. We introduce **UnMix-NeRF**, a framework that integrates spectral unmixing into NeRF, enabling joint hyperspectral novel view synthesis and unsupervised material segmentation. Our method models spectral reflectance via diffuse and specular components, where a learned dictionary of global endmembers represents pure material signatures, and per-point abundances capture their distribution. For material segmentation, we use spectral signature predictions along learned endmembers, allowing unsupervised material clustering. Additionally, UnMix-NeRF enables scene editing by modifying learned endmember dictionaries for flexible material-based appearance manipulation.
 
 
-
 ## 🛠️ Installation
 
 UnMix-NeRF is built upon [Nerfstudio](https://docs.nerf.studio/). Follow these steps to install:
@@ -112,6 +111,14 @@ Add these fields to your `transforms.json`:
   ]
 }
 ```
+
+### 📊 Datasets
+
+We evaluate UnMix-NeRF on the following hyperspectral datasets:
+
+- [NeSpoF](https://drive.google.com/drive/folders/1W7apuXPA3EkyUs8VgZgwdMpnc96aLXXJ) for synthetic scenes,
+- [NeSpoF-Segmentation](https://huggingface.co/datasets/Factral/NeSpoF-segmentation) (our extended version with material labels)
+- [HS-NeRF](https://docs.google.com/document/d/1kD_72gDf_tr3QhBVcyzQ5HV8HkqAW6QOi-zHVwkBrNg/edit?usp=sharing) dataset containing BaySpec and SURF Optics real-world captures
 
 ### Optional: Endmember Initialization
 
