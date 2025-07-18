@@ -6,15 +6,6 @@
 [![Project Page](https://img.shields.io/badge/Project-Page-green.svg)](https://factral.github.io/unmixnerf)
 [![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-orange?logo=huggingface)](https://huggingface.co/datasets/Factral/NeSpoF-segmentation)
 
-
-
-
-
-
-
-
-Preguntar a ChatGPT
-
 </div>
 
 <div>
