@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![arXiv](https://img.shields.io/badge/arXiv-2301.03580-b31b1b.svg)](https://arxiv.org/pdf/2301.03580)
+[![arXiv](https://img.shields.io/badge/arXiv-2301.03580-b31b1b.svg)](https://arxiv.org/pdf/2506.21884)
 [![Project Page](https://img.shields.io/badge/Project-Page-green.svg)](https://factral.github.io/UnMix-NeRF)
 [![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-orange?logo=huggingface)](https://huggingface.co/datasets/Factral/NeSpoF-segmentation)
 
