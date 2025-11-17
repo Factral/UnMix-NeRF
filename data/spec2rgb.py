@@ -144,9 +144,9 @@ def spec_to_rgb(img_path, save_path, view, split):
         cube[..., i] = s
     
     os.makedirs(save_path, exist_ok=True)
+    cube = cube.clip(0, 1)
     np.save(os.path.join(save_path, f"{view}.npy"), cube)
 
-    cube = cube.clip(0, 1)
     spectorgb = ColourSystem(cs='sRGB')
     rgb = spectorgb.spec_to_rgb(cube.reshape(-1, cube.shape[-1]))
     

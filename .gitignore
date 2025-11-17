@@ -15,7 +15,6 @@ data/cbox_dragon/*
 data/processed/*
 data/*.py
 data/*.csv
-vca*
 testing/*
 wandb/*
 eval/*
